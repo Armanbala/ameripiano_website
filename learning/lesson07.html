@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 07: Jazz Harmony | Ameripiano</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #0f0f0f;
+      --text-primary: #f5f5f0;
+      --text-secondary: #888;
+      --text-muted: #666;
+      --accent: #a89060;
+      --border-color: rgba(168, 144, 96, 0.2);
+      --nav-bg: rgba(10,10,10,0.95);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #FAF7F2;
+      --bg-secondary: #f0ebe3;
+      --text-primary: #1a1a1a;
+      --text-secondary: #555;
+      --text-muted: #888;
+      --accent: #8a7050;
+      --border-color: rgba(138, 112, 80, 0.2);
+      --nav-bg: rgba(250,247,242,0.98);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      line-height: 1.8;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+    .nav-links { display: flex; gap: 3rem; }
+
+    .nav-links a {
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      color: var(--text-primary);
+      text-decoration: none;
+      text-transform: uppercase;
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); opacity: 1; }
+
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 40px; height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover { border-color: var(--accent); background: rgba(168, 144, 96, 0.1); }
+    .theme-toggle svg { width: 20px; height: 20px; }
+    .sun-icon { display: none; }
+    .moon-icon { display: block; }
+    [data-theme="light"] .sun-icon { display: block; }
+    [data-theme="light"] .moon-icon { display: none; }
+
+    .lesson-hero {
+      padding: 10rem 2rem 3rem;
+      text-align: center;
+    }
+
+    .lesson-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .level-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--bg-primary);
+      background: var(--accent);
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+    }
+
+    .lesson-num {
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+    }
+
+    .lesson-hero h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .lesson-hero .description {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .lesson-content {
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 2rem 2rem 6rem;
+    }
+
+    .lesson-content h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      font-style: italic;
+      margin: 3rem 0 1.2rem;
+      color: var(--accent);
+    }
+
+    .lesson-content p {
+      font-size: 1.15rem;
+      margin-bottom: 1.2rem;
+      color: var(--text-primary);
+    }
+
+    .lesson-content strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .lesson-content blockquote {
+      border-left: 2px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+      color: var(--text-secondary);
+      font-size: 1.15rem;
+    }
+
+    .notation-figure {
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .notation-figure img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    .notation-figure figcaption {
+      margin-top: 0.6rem;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+
+    .figure-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 120px;
+      border: 1px dashed var(--border-color);
+      border-radius: 8px;
+      background: rgba(168, 144, 96, 0.03);
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 1rem;
+      padding: 1rem;
+    }
+
+    .exercise-box {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+      background: rgba(168, 144, 96, 0.02);
+    }
+
+    .exercise-box h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .exercise-box p {
+      font-size: 1.05rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .exercise-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 3rem 0;
+      color: var(--accent);
+      letter-spacing: 0.5em;
+      font-size: 1.2rem;
+    }
+
+    .lesson-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .lesson-nav a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      transition: color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .lesson-nav a:hover {
+      color: var(--accent);
+    }
+
+    .lesson-nav .nav-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .lesson-nav .nav-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.1rem;
+      font-style: italic;
+    }
+
+    .lesson-nav .next {
+      text-align: right;
+    }
+
+    footer {
+      padding: 4rem;
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1rem; }
+      .nav-right { gap: 0.75rem; }
+      .nav-links { gap: 0.8rem; }
+      .nav-links a { font-size: 0.65rem; letter-spacing: 0.08em; }
+      .logo { font-size: 1.1rem; letter-spacing: 0.2em; }
+      .lesson-content { padding: 2rem 1.5rem 6rem; }
+      .lesson-nav { padding: 2rem 1.5rem 4rem; }
+      .lesson-hero { padding: 8rem 1.5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="logo">PIANO</a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="../learning.html" class="active">Learning</a>
+        <a href="../ask.html">Ask</a>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <section class="lesson-hero">
+    <div class="lesson-meta">
+      <span class="level-tag">Advanced</span>
+      <span class="lesson-num">LESSON 07</span>
+    </div>
+    <h1>Jazz Harmony</h1>
+    <p class="description">Extended chords, chord substitutions, voice leading, and the language of jazz.</p>
+  </section>
+
+  <article class="lesson-content">
+
+    <h2>Beyond the Triad</h2>
+
+    <p>You have spent the previous lessons building triads and moving them through progressions. That three-note foundation is solid and will carry you far. But there is more to harmony than three notes. If triads are the words of music, <strong>seventh chords</strong> are the poetry.</p>
+
+    <p>A seventh chord is a triad with one more note added: the seventh. That single note changes everything. Where a triad sounds clear and stable, a seventh chord sounds rich, complex, and often beautifully unresolved. It is the difference between a black-and-white photograph and the same scene in full color.</p>
+
+    <div class="divider">&mdash;&mdash;&mdash;</div>
+
+    <h2>Types of Seventh Chords</h2>
+
+    <p>There are four main types you will encounter, each with its own personality:</p>
+
+    <p><strong>Major 7th (Cmaj7)</strong>: C&ndash;E&ndash;G&ndash;B. Warm, lush, dreamy. The sound of bossa nova and smooth jazz.</p>
+
+    <p><strong>Dominant 7th (C7)</strong>: C&ndash;E&ndash;G&ndash;B&#9837;. Bright but tense, it wants to resolve. The engine of blues and rock.</p>
+
+    <p><strong>Minor 7th (Cm7)</strong>: C&ndash;E&#9837;&ndash;G&ndash;B&#9837;. Mellow and introspective. The color of cool jazz and R&amp;B.</p>
+
+    <p><strong>Diminished 7th (Cdim7)</strong>: C&ndash;E&#9837;&ndash;G&#9837;&ndash;B&#119083;. Dark and suspenseful. Used for dramatic passing moments.</p>
+
+    <figure class="notation-figure">
+      <div class="figure-placeholder">Figure: Four types of seventh chords built on C</div>
+      <figcaption>The four main seventh chords: Cmaj7, C7, Cm7, Cdim7.</figcaption>
+    </figure>
+
+    <div class="exercise-box">
+      <h4>Try It: Hear the Difference</h4>
+      <p>Play each seventh chord slowly: Cmaj7, then C7, then Cm7. Hold each one and listen. The root, third, and fifth are nearly the same,it is the seventh that transforms the color.</p>
+    </div>
+
+    <h2>The ii&ndash;V&ndash;I with Seventh Chords</h2>
+
+    <p>You already know the ii&ndash;V&ndash;I progression. In jazz, it is played with seventh chords: <strong>Dm7&ndash;G7&ndash;Cmaj7</strong>. This is the most important progression in jazz. Learn it in every key and you will have the skeleton of hundreds of jazz standards.</p>
+
+    <figure class="notation-figure">
+      <div class="figure-placeholder">Figure: ii-V-I with seventh chords (Dm7-G7-Cmaj7)</div>
+      <figcaption>The jazz ii&ndash;V&ndash;I: Dm7&ndash;G7&ndash;Cmaj7.</figcaption>
+    </figure>
+
+    <h2>Voice Leading</h2>
+
+    <p><strong>Voice leading</strong> is the art of moving smoothly from one chord to the next. Instead of jumping your hand to a new position for each chord, you find the voicing where the fewest notes need to move,and the notes that do move go to the nearest available pitch.</p>
+
+    <p>Good voice leading makes chord changes sound effortless and connected. In the Dm7&ndash;G7&ndash;Cmaj7 progression, notice that many notes are shared or move by just a half step. That smooth motion is what gives jazz its silky harmonic flow.</p>
+
+    <h2>Chord Substitutions</h2>
+
+    <p>Jazz musicians love to <strong>substitute</strong> one chord for another that shares a similar function. The most famous substitution is the <strong>tritone substitution</strong>: replacing a dominant chord with another dominant chord whose root is a tritone away. For example, replacing G7 with D&#9837;7.</p>
+
+    <p>This works because both chords share the same two most important notes (the third and seventh, just swapped). The result is a more colorful, chromatic bass line that adds sophistication to any progression.</p>
+
+    <div class="divider">&mdash;&mdash;&mdash;</div>
+
+    <div class="exercise-box">
+      <h4>Exercise: ii&ndash;V&ndash;I in Three Keys</h4>
+      <p>Play the ii&ndash;V&ndash;I with seventh chords in C major (Dm7&ndash;G7&ndash;Cmaj7), F major (Gm7&ndash;C7&ndash;Fmaj7), and G major (Am7&ndash;D7&ndash;Gmaj7). Focus on smooth voice leading between chords.</p>
+    </div>
+
+    <blockquote>Jazz harmony is not more complicated than classical harmony. It is simply more colorful. And now you have the palette to begin painting with it.</blockquote>
+
+  </article>
+
+  <div class="lesson-nav">
+    <a href="lesson06.html">
+      <span class="nav-label">&larr; Previous</span>
+      <span class="nav-title">Rhythm &amp; Time</span>
+    </a>
+    <a href="lesson08.html" class="next">
+      <span class="nav-label">Next &rarr;</span>
+      <span class="nav-title">Improvisation</span>
+    </a>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Ameripiano &mdash; Made with love for the art of piano</p>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    html.setAttribute('data-theme', savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+  </script>
+</body>
+</html>

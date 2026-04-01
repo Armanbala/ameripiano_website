@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 08: Improvisation | Ameripiano</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #0f0f0f;
+      --text-primary: #f5f5f0;
+      --text-secondary: #888;
+      --text-muted: #666;
+      --accent: #a89060;
+      --border-color: rgba(168, 144, 96, 0.2);
+      --nav-bg: rgba(10,10,10,0.95);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #FAF7F2;
+      --bg-secondary: #f0ebe3;
+      --text-primary: #1a1a1a;
+      --text-secondary: #555;
+      --text-muted: #888;
+      --accent: #8a7050;
+      --border-color: rgba(138, 112, 80, 0.2);
+      --nav-bg: rgba(250,247,242,0.98);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      line-height: 1.8;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+    .nav-links { display: flex; gap: 3rem; }
+
+    .nav-links a {
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      color: var(--text-primary);
+      text-decoration: none;
+      text-transform: uppercase;
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); opacity: 1; }
+
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 40px; height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover { border-color: var(--accent); background: rgba(168, 144, 96, 0.1); }
+    .theme-toggle svg { width: 20px; height: 20px; }
+    .sun-icon { display: none; }
+    .moon-icon { display: block; }
+    [data-theme="light"] .sun-icon { display: block; }
+    [data-theme="light"] .moon-icon { display: none; }
+
+    .lesson-hero {
+      padding: 10rem 2rem 3rem;
+      text-align: center;
+    }
+
+    .lesson-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .level-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--bg-primary);
+      background: var(--accent);
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+    }
+
+    .lesson-num {
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+    }
+
+    .lesson-hero h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .lesson-hero .description {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .lesson-content {
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 2rem 2rem 6rem;
+    }
+
+    .lesson-content h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      font-style: italic;
+      margin: 3rem 0 1.2rem;
+      color: var(--accent);
+    }
+
+    .lesson-content p {
+      font-size: 1.15rem;
+      margin-bottom: 1.2rem;
+      color: var(--text-primary);
+    }
+
+    .lesson-content strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .lesson-content blockquote {
+      border-left: 2px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+      color: var(--text-secondary);
+      font-size: 1.15rem;
+    }
+
+    .notation-figure {
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .notation-figure img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    .notation-figure figcaption {
+      margin-top: 0.6rem;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+
+    .figure-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 120px;
+      border: 1px dashed var(--border-color);
+      border-radius: 8px;
+      background: rgba(168, 144, 96, 0.03);
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 1rem;
+      padding: 1rem;
+    }
+
+    .exercise-box {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+      background: rgba(168, 144, 96, 0.02);
+    }
+
+    .exercise-box h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .exercise-box p {
+      font-size: 1.05rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .exercise-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 3rem 0;
+      color: var(--accent);
+      letter-spacing: 0.5em;
+      font-size: 1.2rem;
+    }
+
+    .lesson-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .lesson-nav a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      transition: color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .lesson-nav a:hover {
+      color: var(--accent);
+    }
+
+    .lesson-nav .nav-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .lesson-nav .nav-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.1rem;
+      font-style: italic;
+    }
+
+    .lesson-nav .next {
+      text-align: right;
+    }
+
+    footer {
+      padding: 4rem;
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1rem; }
+      .nav-right { gap: 0.75rem; }
+      .nav-links { gap: 0.8rem; }
+      .nav-links a { font-size: 0.65rem; letter-spacing: 0.08em; }
+      .logo { font-size: 1.1rem; letter-spacing: 0.2em; }
+      .lesson-content { padding: 2rem 1.5rem 6rem; }
+      .lesson-nav { padding: 2rem 1.5rem 4rem; }
+      .lesson-hero { padding: 8rem 1.5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="logo">PIANO</a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="../learning.html" class="active">Learning</a>
+        <a href="../ask.html">Ask</a>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <section class="lesson-hero">
+    <div class="lesson-meta">
+      <span class="level-tag">Advanced</span>
+      <span class="lesson-num">LESSON 08</span>
+    </div>
+    <h1>Improvisation</h1>
+    <p class="description">Finding your voice at the piano: scales over chords, motif development, and spontaneous creation.</p>
+  </section>
+
+  <article class="lesson-content">
+
+    <h2>Making Music Your Own</h2>
+
+    <p>There is a moment in every pianist&rsquo;s journey when something extraordinary happens. You sit down at the keyboard, and instead of reaching for sheet music, you simply begin to play. Not someone else&rsquo;s melody. <strong>Yours.</strong> Notes that have never existed before in exactly that order. That is improvisation, and it is one of the most thrilling experiences the piano can offer.</p>
+
+    <p>If the word feels intimidating, I understand. Many students imagine improvisation as something reserved for jazz virtuosos. Nothing could be further from the truth. Improvisation is a skill, and like every other skill in this course, it begins with a few simple tools and the willingness to experiment.</p>
+
+    <blockquote>You do not need to be fearless to improvise. You just need to be willing.</blockquote>
+
+    <div class="divider">&mdash;&mdash;&mdash;</div>
+
+    <h2>What Improvisation Really Means</h2>
+
+    <p>Improvisation does not mean playing without structure. Even the most free-spirited jazz solo follows patterns, gravitates toward certain notes, and respects the underlying harmony. It means creating music in real time,making choices moment to moment about what to play next.</p>
+
+    <p>Think of it like a conversation. You do not read from a script, but you use vocabulary you already know, follow grammar you have internalized, and respond to what was just said. Your musical vocabulary is scales, chords, and patterns. Your grammar is harmony. And the &ldquo;other person&rdquo; is either a chord progression, a backing track, or even just the last phrase you played.</p>
+
+    <h2>The Pentatonic Scale: Your Safest Playground</h2>
+
+    <p>If there is one scale designed for improvisation, it is the <strong>pentatonic scale</strong>. It has only five notes (penta = five), and the magic is that <em>every combination sounds good</em>. There are no awkward dissonances, no wrong turns.</p>
+
+    <p>The <strong>C major pentatonic</strong>: C&ndash;D&ndash;E&ndash;G&ndash;A. That is it. Five notes. Try playing them in any order over a C major chord and listen to how naturally musical it sounds.</p>
+
+    <figure class="notation-figure">
+      <div class="figure-placeholder">Figure: C major pentatonic scale</div>
+      <figcaption>The C major pentatonic: five notes, infinite possibilities.</figcaption>
+    </figure>
+
+    <div class="exercise-box">
+      <h4>Exercise: Free Improvisation</h4>
+      <p>With your left hand, hold a C major chord (C&ndash;E&ndash;G). With your right hand, play any combination of C, D, E, G, and A. There are no wrong notes. Experiment with rhythm, with repetition, with going up and coming back down. Just play.</p>
+    </div>
+
+    <h2>Motif Development</h2>
+
+    <p>A <strong>motif</strong> is a short musical idea,just two to four notes. Great improvisers do not play endless streams of random notes. They take a small idea and <strong>develop</strong> it: repeat it, change one note, play it higher, play it slower, invert it.</p>
+
+    <p>Try this: play three notes,say, E&ndash;G&ndash;A. Now repeat them. Now play them starting on a different note. Now change the rhythm. You have just turned three notes into an entire musical statement. That is motif development, and it is the secret to improvisation that sounds intentional rather than random.</p>
+
+    <h2>Playing Over Changes</h2>
+
+    <p>As you grow more comfortable, the next step is improvising over a <strong>chord progression</strong>. Start simple: loop a I&ndash;IV&ndash;V&ndash;I in C major and improvise using the C major pentatonic over all of it. Because the pentatonic avoids the &ldquo;tricky&rdquo; notes (the 4th and 7th), it sounds good over every chord in the key.</p>
+
+    <p>When you are ready, try targeting <strong>chord tones</strong>,landing on a note from the current chord on strong beats. Play E when the C chord is sounding. Play A when the F chord arrives. This creates a sense of dialogue between your melody and the harmony beneath it.</p>
+
+    <div class="divider">&mdash;&mdash;&mdash;</div>
+
+    <div class="exercise-box">
+      <h4>Exercise: 12-Bar Blues Improv</h4>
+      <p>Play a simple 12-bar blues in C (four bars of C, two bars of F, two bars of C, one bar of G, one bar of F, two bars of C). Improvise a melody over it using the C minor pentatonic: C&ndash;E&#9837;&ndash;F&ndash;G&ndash;B&#9837;. The minor pentatonic over a major blues progression is the classic blues sound.</p>
+    </div>
+
+    <blockquote>Improvisation is not about playing the right notes. It is about playing your notes.</blockquote>
+
+  </article>
+
+  <div class="lesson-nav">
+    <a href="lesson07.html">
+      <span class="nav-label">&larr; Previous</span>
+      <span class="nav-title">Jazz Harmony</span>
+    </a>
+    <a href="lesson09.html" class="next">
+      <span class="nav-label">Next &rarr;</span>
+      <span class="nav-title">Persian Classical Music</span>
+    </a>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Ameripiano &mdash; Made with love for the art of piano</p>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    html.setAttribute('data-theme', savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+  </script>
+</body>
+</html>

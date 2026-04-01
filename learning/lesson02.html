@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 02: Reading Your First Notes | Ameripiano</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #0f0f0f;
+      --text-primary: #f5f5f0;
+      --text-secondary: #888;
+      --text-muted: #666;
+      --accent: #a89060;
+      --border-color: rgba(168, 144, 96, 0.2);
+      --nav-bg: rgba(10,10,10,0.95);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #FAF7F2;
+      --bg-secondary: #f0ebe3;
+      --text-primary: #1a1a1a;
+      --text-secondary: #555;
+      --text-muted: #888;
+      --accent: #8a7050;
+      --border-color: rgba(138, 112, 80, 0.2);
+      --nav-bg: rgba(250,247,242,0.98);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      line-height: 1.8;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+    .nav-links { display: flex; gap: 3rem; }
+
+    .nav-links a {
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      color: var(--text-primary);
+      text-decoration: none;
+      text-transform: uppercase;
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); opacity: 1; }
+
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 40px; height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover { border-color: var(--accent); background: rgba(168, 144, 96, 0.1); }
+    .theme-toggle svg { width: 20px; height: 20px; }
+    .sun-icon { display: none; }
+    .moon-icon { display: block; }
+    [data-theme="light"] .sun-icon { display: block; }
+    [data-theme="light"] .moon-icon { display: none; }
+
+    .lesson-hero {
+      padding: 10rem 2rem 3rem;
+      text-align: center;
+    }
+
+    .lesson-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .level-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--bg-primary);
+      background: var(--accent);
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+    }
+
+    .lesson-num {
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+    }
+
+    .lesson-hero h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .lesson-hero .description {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .lesson-content {
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 2rem 2rem 6rem;
+    }
+
+    .lesson-content h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      font-style: italic;
+      margin: 3rem 0 1.2rem;
+      color: var(--accent);
+    }
+
+    .lesson-content p {
+      font-size: 1.15rem;
+      margin-bottom: 1.2rem;
+      color: var(--text-primary);
+    }
+
+    .lesson-content strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .lesson-content blockquote {
+      border-left: 2px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+      color: var(--text-secondary);
+      font-size: 1.15rem;
+    }
+
+    .notation-figure {
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .notation-figure img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    .notation-figure figcaption {
+      margin-top: 0.6rem;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+
+    .figure-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 120px;
+      border: 1px dashed var(--border-color);
+      border-radius: 8px;
+      background: rgba(168, 144, 96, 0.03);
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 1rem;
+      padding: 1rem;
+    }
+
+    .exercise-box {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+      background: rgba(168, 144, 96, 0.02);
+    }
+
+    .exercise-box h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .exercise-box p {
+      font-size: 1.05rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .exercise-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 3rem 0;
+      color: var(--accent);
+      letter-spacing: 0.5em;
+      font-size: 1.2rem;
+    }
+
+    .lesson-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .lesson-nav a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      transition: color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .lesson-nav a:hover {
+      color: var(--accent);
+    }
+
+    .lesson-nav .nav-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .lesson-nav .nav-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.1rem;
+      font-style: italic;
+    }
+
+    .lesson-nav .next {
+      text-align: right;
+    }
+
+    footer {
+      padding: 4rem;
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1rem; }
+      .nav-right { gap: 0.75rem; }
+      .nav-links { gap: 0.8rem; }
+      .nav-links a { font-size: 0.65rem; letter-spacing: 0.08em; }
+      .logo { font-size: 1.1rem; letter-spacing: 0.2em; }
+      .lesson-content { padding: 2rem 1.5rem 6rem; }
+      .lesson-nav { padding: 2rem 1.5rem 4rem; }
+      .lesson-hero { padding: 8rem 1.5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="logo">PIANO</a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="../learning.html" class="active">Learning</a>
+        <a href="../ask.html">Ask</a>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <section class="lesson-hero">
+    <div class="lesson-meta">
+      <span class="level-tag">Beginner</span>
+      <span class="lesson-num">LESSON 02</span>
+    </div>
+    <h1>Reading Your First Notes</h1>
+    <p class="description">Introduction to the treble clef, recognizing notes on the staff, and playing simple melodies.</p>
+  </section>
+
+  <article class="lesson-content">
+
+    <h2>The Language of Written Music</h2>
+
+    <p>In the last lesson, you found Middle C, placed your hands in C Position, and played your very first notes. But imagine someone hands you a piece of sheet music and says, <em>play this.</em> Right now, those dots and lines might look like a foreign language. By the end of this lesson, you will be reading that language.</p>
+
+    <p>Written music is one of humanity&rsquo;s great inventions. It allows a composer who lived three hundred years ago to whisper directly into your ear, telling you exactly which notes to play. Learning to read music is not about memorizing rules,it is about gaining access to an enormous library of beauty that is already waiting for you.</p>
+
+    <div class="divider">&mdash;&mdash;&mdash;</div>
+
+    <h2>The Staff</h2>
+
+    <p>All written music begins with the <strong>staff</strong>: a set of five horizontal lines with four spaces between them. Every note sits either on a line or in a space. The lines are counted from the bottom up,the lowest is the first line, the highest is the fifth.</p>
+
+    <p>By itself, a staff is just a grid of possibilities. What gives it meaning is a symbol at the beginning called a <strong>clef</strong>. The clef tells you which notes correspond to which lines and spaces. Think of the clef as a decoder ring.</p>
+
+    <h2>The Treble Clef</h2>
+
+    <p>The <strong>treble clef</strong> (also called the G clef) is the elegant, curving symbol at the beginning of the upper staff. Its inner curl wraps around the second line, marking that line as the note G.</p>
+
+    <p>The five lines of the treble clef, from bottom to top, carry the notes <strong>E, G, B, D, F</strong>. Remember them with: <em>Every Good Boy Does Fine.</em></p>
+
+    <figure class="notation-figure">
+      <div class="figure-placeholder">Figure: Treble clef line notes E-G-B-D-F</div>
+      <figcaption>The notes on the lines of the treble clef: E, G, B, D, F.</figcaption>
+    </figure>
+
+    <p>The four spaces spell out <strong>F&ndash;A&ndash;C&ndash;E</strong>,which conveniently spells FACE. No mnemonic needed.</p>
+
+    <figure class="notation-figure">
+      <div class="figure-placeholder">Figure: Treble clef space notes F-A-C-E</div>
+      <figcaption>The notes in the spaces of the treble clef: F, A, C, E.</figcaption>
+    </figure>
+
+    <h2>The Bass Clef</h2>
+
+    <p>The <strong>bass clef</strong> (the F clef) is used for the lower staff, typically played by the left hand. Its two dots sit above and below the fourth line, marking it as F.</p>
+
+    <p>The bass clef lines, bottom to top: <strong>G, B, D, F, A</strong> (<em>Good Boys Do Fine Always</em>). The spaces: <strong>A, C, E, G</strong> (<em>All Cows Eat Grass</em>).</p>
+
+    <figure class="notation-figure">
+      <div class="figure-placeholder">Figure: Bass clef line and space notes</div>
+      <figcaption>Bass clef lines (G, B, D, F, A) and spaces (A, C, E, G).</figcaption>
+    </figure>
+
+    <h2>The Grand Staff</h2>
+
+    <p>Piano uses two staves joined together called the <strong>grand staff</strong>: treble clef on top (right hand) and bass clef below (left hand), connected by a brace. Between them, Middle C sits on its own <strong>ledger line</strong>,a short line just below the treble staff or just above the bass staff.</p>
+
+    <figure class="notation-figure">
+      <div class="figure-placeholder">Figure: The grand staff with Middle C</div>
+      <figcaption>The grand staff: treble clef above, bass clef below, with Middle C bridging them.</figcaption>
+    </figure>
+
+    <blockquote>Lines and spaces alternate. If a note is on a line, the next note up is always in a space, and vice versa. The alphabet never skips.</blockquote>
+
+    <h2>Ledger Lines</h2>
+
+    <p>When a melody goes higher or lower than the five staff lines, we extend with short temporary lines called <strong>ledger lines</strong>. You have already seen one: Middle C sits on a ledger line. In beginner music, you will rarely see more than one or two.</p>
+
+    <div class="divider">&mdash;&mdash;&mdash;</div>
+
+    <h2>Your First Reading Exercises</h2>
+
+    <div class="exercise-box">
+      <h4>Exercise 1: Right Hand Reading</h4>
+      <p>Place your right hand in C Position (thumb on Middle C). Look at each note below, identify its line or space, say the letter name in your head, and play it. Go slowly,there is no tempo yet.</p>
+    </div>
+
+    <figure class="notation-figure">
+      <div class="figure-placeholder">Figure: Right hand reading exercise in C Position</div>
+      <figcaption>Right hand reading exercise in C Position.</figcaption>
+    </figure>
+
+    <div class="exercise-box">
+      <h4>Exercise 2: Left Hand Reading</h4>
+      <p>Place your left hand in C Position (pinky on the C below Middle C). This exercise is in the bass clef. Identify each note and play the corresponding key.</p>
+    </div>
+
+    <figure class="notation-figure">
+      <div class="figure-placeholder">Figure: Left hand reading exercise in bass clef</div>
+      <figcaption>Left hand reading exercise in bass clef C Position.</figcaption>
+    </figure>
+
+    <h2>Tips for Learning to Read</h2>
+
+    <p><strong>Start with the notes you know.</strong> You already know C Position. Build outward from those familiar landmarks rather than memorizing everything at once.</p>
+
+    <p><strong>Say the note names aloud.</strong> This creates a connection between the visual symbol, the spoken word, and the physical key. Over time, you will simply <em>see</em> the note and your finger moves to the right key.</p>
+
+    <p><strong>Use the landmarks.</strong> The treble clef&rsquo;s second line is always G. The bass clef&rsquo;s fourth line is always F. Middle C is always on its ledger line. Find the nearest landmark and count from there.</p>
+
+    <p><strong>Be patient with the bass clef.</strong> Most beginner melodies are in the treble clef, so the bass clef gets fewer repetitions. Make a point of practicing it every day, even for a few minutes.</p>
+
+    <blockquote>Reading music is not about memorizing rules. It is about learning a language,one that lets you hear the thoughts of composers across centuries, and eventually, to write down your own.</blockquote>
+
+  </article>
+
+  <div class="lesson-nav">
+    <a href="lesson01.html">
+      <span class="nav-label">&larr; Previous</span>
+      <span class="nav-title">The Piano Keyboard</span>
+    </a>
+    <a href="lesson03.html" class="next">
+      <span class="nav-label">Next &rarr;</span>
+      <span class="nav-title">Basic Chords</span>
+    </a>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Ameripiano &mdash; Made with love for the art of piano</p>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    html.setAttribute('data-theme', savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+  </script>
+</body>
+</html>
