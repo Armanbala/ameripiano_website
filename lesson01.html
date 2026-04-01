@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 01: The Piano Keyboard | Ameripiano</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #0f0f0f;
+      --text-primary: #f5f5f0;
+      --text-secondary: #888;
+      --text-muted: #666;
+      --accent: #a89060;
+      --border-color: rgba(168, 144, 96, 0.2);
+      --nav-bg: rgba(10,10,10,0.95);
+      --fig-bg: rgba(255, 255, 255, 0.06);
+      --fig-border: rgba(168, 144, 96, 0.15);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #FAF7F2;
+      --bg-secondary: #f0ebe3;
+      --text-primary: #1a1a1a;
+      --text-secondary: #555;
+      --text-muted: #888;
+      --accent: #8a7050;
+      --border-color: rgba(138, 112, 80, 0.2);
+      --nav-bg: rgba(250,247,242,0.98);
+      --fig-bg: rgba(255, 255, 255, 0.5);
+      --fig-border: rgba(138, 112, 80, 0.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      line-height: 1.8;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+    .nav-links { display: flex; gap: 3rem; }
+
+    .nav-links a {
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      color: var(--text-primary);
+      text-decoration: none;
+      text-transform: uppercase;
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); opacity: 1; }
+
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 40px; height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover { border-color: var(--accent); background: rgba(168, 144, 96, 0.1); }
+    .theme-toggle svg { width: 20px; height: 20px; }
+    .sun-icon { display: none; }
+    .moon-icon { display: block; }
+    [data-theme="light"] .sun-icon { display: block; }
+    [data-theme="light"] .moon-icon { display: none; }
+
+    .lesson-hero {
+      padding: 10rem 2rem 3rem;
+      text-align: center;
+    }
+
+    .lesson-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .level-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--bg-primary);
+      background: var(--accent);
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+    }
+
+    .lesson-num {
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+    }
+
+    .lesson-hero h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .lesson-hero .description {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .lesson-content {
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 2rem 2rem 6rem;
+    }
+
+    .lesson-content h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      font-style: italic;
+      margin: 3rem 0 1.2rem;
+      color: var(--accent);
+    }
+
+    .lesson-content p {
+      font-size: 1.15rem;
+      margin-bottom: 1.2rem;
+      color: var(--text-primary);
+    }
+
+    .lesson-content strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .lesson-content blockquote {
+      border-left: 2px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+      color: var(--text-secondary);
+      font-size: 1.15rem;
+    }
+
+    .notation-figure {
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .notation-figure .fig-container {
+      display: inline-block;
+      background: var(--fig-bg);
+      border: 1px solid var(--fig-border);
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    .notation-figure img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Invert notation images in dark mode so black notes become white */
+    [data-theme="dark"] .notation-figure img.notation {
+      filter: invert(1) hue-rotate(180deg);
+    }
+
+    .notation-figure figcaption {
+      margin-top: 0.8rem;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+
+    .exercise-box {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+      background: rgba(168, 144, 96, 0.02);
+    }
+
+    .exercise-box h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .exercise-box p {
+      font-size: 1.05rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .exercise-box p:last-child { margin-bottom: 0; }
+
+    .divider {
+      text-align: center;
+      margin: 3rem 0;
+      color: var(--accent);
+      letter-spacing: 0.5em;
+      font-size: 1.2rem;
+    }
+
+    .lesson-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .lesson-nav a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      transition: color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .lesson-nav a:hover { color: var(--accent); }
+
+    .lesson-nav .nav-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .lesson-nav .nav-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.1rem;
+      font-style: italic;
+    }
+
+    .lesson-nav .next { text-align: right; }
+
+    footer {
+      padding: 4rem;
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1rem; }
+      .nav-right { gap: 0.75rem; }
+      .nav-links { gap: 0.8rem; }
+      .nav-links a { font-size: 0.65rem; letter-spacing: 0.08em; }
+      .logo { font-size: 1.1rem; letter-spacing: 0.2em; }
+      .lesson-content { padding: 2rem 1.5rem 6rem; }
+      .lesson-nav { padding: 2rem 1.5rem 4rem; }
+      .lesson-hero { padding: 8rem 1.5rem 2rem; }
+      .notation-figure .fig-container { padding: 0.75rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="logo">PIANO</a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="../learning.html" class="active">Learning</a>
+        <a href="../ask.html">Ask</a>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <section class="lesson-hero">
+    <div class="lesson-meta">
+      <span class="level-tag">Beginner</span>
+      <span class="lesson-num">LESSON 01</span>
+    </div>
+    <h1>The Piano Keyboard</h1>
+    <p class="description">Understanding the layout of white and black keys, finding middle C, and proper sitting posture.</p>
+  </section>
+
+  <article class="lesson-content">
+
+    <h2>Before You Play a Single Note</h2>
+
+    <p>Before we talk about notes, chords, or scales, I want to say something that too many piano books skip over: <strong>this is supposed to be fun.</strong></p>
+
+    <p>Somewhere along the way, learning an instrument became associated with discipline, sacrifice, and endless repetition. And while practice is certainly part of the journey, the real engine of progress is enjoyment. When you look forward to sitting at the piano, when a melody makes you smile as your fingers find it, when you lose track of time because you are so absorbed in a piece, that is when real learning happens.</p>
+
+    <p>So let&#x2019;s begin the way all good things begin: simply, patiently, and with a spirit of curiosity.</p>
+
+    <div class="divider">&mdash;&mdash;&mdash;</div>
+
+    <h2>The Pattern of Black Keys</h2>
+
+    <p>Sit in front of your keyboard and take a moment to just look at it. You will see white and black keys stretching from left to right. The first thing to notice is that the black keys are not randomly placed. They form a repeating pattern of <strong>groups of two</strong> and <strong>groups of three</strong>, alternating all the way across the keyboard.</p>
+
+    <p>This pattern is your map. Run your fingers lightly over the black keys and feel the grouping: two, then three, then two, then three. Every piano in the world is laid out this way. Once you learn to see it, you will never feel lost.</p>
+
+    <figure class="notation-figure">
+      <div class="fig-container">
+        <img src="images/01_keyboard_diagram.png" alt="Piano keyboard diagram showing two octaves with groups of 2 and 3 black keys highlighted">
+      </div>
+      <figcaption>The repeating pattern of black keys: groups of two and groups of three.</figcaption>
+    </figure>
+
+    <blockquote>Think of the black keys as your street signs. They never move, and they always tell you where you are.</blockquote>
+
+    <h2>The Musical Alphabet</h2>
+
+    <p>Music uses only the first seven letters of the alphabet: <strong>A, B, C, D, E, F, G</strong>. After G, the pattern starts over at A. This cycle repeats across the entire keyboard.</p>
+
+    <p>Each white key has a letter name, and you can find any note by using the black key groups as landmarks. <strong>C</strong> is always found immediately to the left of the group of two black keys. <strong>F</strong> is always immediately to the left of the group of three. These two landmarks are all you need to orient yourself anywhere on the keyboard.</p>
+
+    <div class="exercise-box">
+      <h4>Try It</h4>
+      <p>Starting from the lowest note on your keyboard, find every C by looking for the groups of two black keys. Then find every F using the groups of three. Within a minute or two, the entire keyboard will feel like familiar territory.</p>
+    </div>
+
+    <h2>Understanding Octaves</h2>
+
+    <p>The distance from one C to the very next C is called an <strong>octave</strong>. The word comes from the Latin <em>octo</em>, meaning eight, because it spans eight letter names: C, D, E, F, G, A, B, and then C again.</p>
+
+    <p>When you play a C and then the next C above it, they sound like the <em>same note</em>, just higher. The higher note vibrates at exactly twice the frequency of the lower one. Your ear perceives them as the same pitch in a different register.</p>
+
+    <h2>Finding Middle C</h2>
+
+    <p>Of all the C notes on the keyboard, one is especially important: <strong>Middle C</strong>. On an 88-key piano, it sits roughly in the center. On a 61-key keyboard, it is typically the third C from the left.</p>
+
+    <p>Find a group of two black keys near the center of your keyboard. The white key just to the left of that group is Middle C. Press it gently. Listen. That single note is your starting point for everything that follows.</p>
+
+    <p>In written music, Middle C sits on a short line called a <em>ledger line</em>, right between the treble and bass staves of the grand staff:</p>
+
+    <figure class="notation-figure">
+      <div class="fig-container">
+        <img src="images/01_middle_c.png" alt="Middle C on the grand staff" class="notation">
+      </div>
+      <figcaption>Middle C on the grand staff, sitting on its own ledger line between treble and bass clefs.</figcaption>
+    </figure>
+
+    <div class="divider">&mdash;&mdash;&mdash;</div>
+
+    <h2>Sitting at the Piano</h2>
+
+    <p>How you sit affects everything about how you play. Sit toward the <strong>front edge</strong> of your bench, not pressed against the back. Your feet should rest flat on the floor. Your forearms should be roughly parallel to the keyboard, if your wrists are angled sharply up or down, adjust your seat height.</p>
+
+    <p>Keep your shoulders relaxed and down. Tension in the shoulders travels through the arms into the fingers, and tense fingers do not play well. Think of your arms as hanging naturally from your shoulders, with your hands simply resting on the keys.</p>
+
+    <h2>Hand Position &amp; Finger Numbers</h2>
+
+    <p>Imagine holding a tennis ball. Your fingers curve gently, your knuckles form a soft arch, and your wrist stays level. That relaxed, curved shape is the foundation of good piano technique. Each finger contacts the key with the <strong>fingertip</strong>, not the flat pad.</p>
+
+    <p>In piano music, each finger has a number. Both hands use the same system: <strong>1</strong> = Thumb &#x00B7; <strong>2</strong> = Index &#x00B7; <strong>3</strong> = Middle &#x00B7; <strong>4</strong> = Ring &#x00B7; <strong>5</strong> = Pinky. When you see a small number near a note in sheet music, that is a fingering suggestion.</p>
+
+    <div class="divider">&mdash;&mdash;&mdash;</div>
+
+    <h2>Your First Position: C Position</h2>
+
+    <p><strong>Right hand:</strong> Place your thumb (finger 1) on Middle C. Let your remaining fingers fall naturally on D, E, F, and G. Each finger gets one key, with your pinky on G.</p>
+
+    <figure class="notation-figure">
+      <div class="fig-container">
+        <img src="images/01_c_pos_rh.png" alt="C Position for the right hand: fingers 1 through 5 on C, D, E, F, G" class="notation">
+      </div>
+      <figcaption>C Position for the right hand: fingers 1&#x2013;5 on C&#x2013;D&#x2013;E&#x2013;F&#x2013;G.</figcaption>
+    </figure>
+
+    <p><strong>Left hand:</strong> Place your pinky (finger 5) on the C one octave below Middle C. Let your fingers fall on C, D, E, F, and G, with your thumb on G.</p>
+
+    <figure class="notation-figure">
+      <div class="fig-container">
+        <img src="images/01_c_pos_lh.png" alt="C Position for the left hand: fingers 5 through 1 on C, D, E, F, G" class="notation">
+      </div>
+      <figcaption>C Position for the left hand: fingers 5&#x2013;1 on C&#x2013;D&#x2013;E&#x2013;F&#x2013;G.</figcaption>
+    </figure>
+
+    <h2>Your First Exercises</h2>
+
+    <div class="exercise-box">
+      <h4>Exercise 1: Going Up and Coming Back</h4>
+      <p>With your right hand in C Position, play C&#x2013;D&#x2013;E&#x2013;F&#x2013;G one note at a time, then come back down: G&#x2013;F&#x2013;E&#x2013;D&#x2013;C. Keep an even, unhurried pace.</p>
+    </div>
+
+    <figure class="notation-figure">
+      <div class="fig-container">
+        <img src="images/01_rh_exercise.png" alt="Right hand exercise: ascending from C to G and descending back to C" class="notation">
+      </div>
+      <figcaption>Right hand exercise: ascending from C to G and returning.</figcaption>
+    </figure>
+
+    <div class="exercise-box">
+      <h4>Exercise 2: Left Hand Mirror</h4>
+      <p>Do the same with your left hand from the C below Middle C. The fingering is reversed, you start with finger 5 and end with finger 1.</p>
+    </div>
+
+    <div class="exercise-box">
+      <h4>Exercise 3: Hands Together</h4>
+      <p>Play C in both hands simultaneously, then both D notes, E, F, G. Come back down. If it feels awkward, slow down further. There is no shame in taking this one note at a time.</p>
+    </div>
+
+    <blockquote>You do not need to sound good today. You just need to begin.</blockquote>
+
+    <div class="divider">&mdash;&mdash;&mdash;</div>
+
+    <h2>Building a Practice Habit</h2>
+
+    <p>The single most important thing about practice is <strong>consistency</strong>. Fifteen minutes every day is far more valuable than two hours once a week. Set a modest goal, ten minutes is enough. Start each session with something easy to warm up. End on a positive note, playing something you are proud of.</p>
+
+    <p>And listen to piano music. A Chopin nocturne, a Bill Evans trio, a film soundtrack, anything that moves you. Listening with intention is part of becoming a musician.</p>
+
+    <blockquote>Music is not a destination. It is a way of being.</blockquote>
+
+  </article>
+
+  <div class="lesson-nav">
+    <a href="../learning.html">
+      <span class="nav-label">&#x2190; Back</span>
+      <span class="nav-title">All Lessons</span>
+    </a>
+    <a href="lesson02.html" class="next">
+      <span class="nav-label">Next &#x2192;</span>
+      <span class="nav-title">Reading Your First Notes</span>
+    </a>
+  </div>
+
+  <footer>
+    <p>&#x00A9; 2025 Ameripiano &#x2014; Made with love for the art of piano</p>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    html.setAttribute('data-theme', savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+  </script>
+</body>
+</html>
